@@ -1,4 +1,4 @@
-ï»¿// ****** cSchedule.cpp ******
+// ****** cSchedule.cpp ******
 #include "cSchedule.h"
 
 
@@ -10,26 +10,97 @@ cSchedule::cSchedule()
 
 cSchedule::~cSchedule()
 {
-	// @ filesave êµ¬ë¬¸
-
-	// @ ë™ì  í• ë‹¹í•œ ë©”ëª¨ë¦¬ ë°˜í™˜
+	// @ µ¿Àû ÇÒ´çÇÑ ¸Ş¸ğ¸® ¹İÈ¯
 	if (this->categoryData != nullptr) {
 		delete[] this->categoryData;
 		this->categoryData = nullptr;
 	}
 }
 
-cSchedule::cSchedule(string sName)
-{
-	this->sName = sName;
-	
-}
-
-int cSchedule::showMenu()
+// getchar ÇÔ¼ö ´Ù½Ã °øºÎ ÈÄ ÀÔ·Â¹öÆÛ ºñ¿ì±â ÇØº¸ÀÚ
+void cSchedule::makeSchedule()
 {
 	int sel = -1;
+	string name, category;
 
-	return sel;
+	while (1) {
+	re:;
+		system("cls");
+		cout << "<ÀÏÁ¤ Ãß°¡>\n\n";
+
+		// 1. ÀÏÁ¤ ÀÌ¸§
+		_getch();
+		cout << "ÀÏÁ¤ÀÇ ÀÌ¸§À» ÀÔ·ÂÇØÁÖ¼¼¿ä >> ";
+		while (getchar() != '\n') {
+			cin >> name;
+		}
+
+		if (name.size() > 20) {
+			cout << ">> 20ÀÚ ÀÌÇÏ·Î ÀÔ·ÂÇØÁÖ¼¼¿ä.";
+			system("pause");
+			goto re;
+		}
+		else if (name.empty()) {
+			cout << ">> °ø¹é ÀÔ·Â ºÒ°¡. ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä.";
+			system("pause");
+			goto re;
+		}
+		else {
+			this->sName = name;
+		}
+
+		// 2. ÀÏÁ¤ Ä«Å×°í¸®
+		cout << "ÀÏÁ¤ÀÇ Ä«Å×°í¸®¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä >> ";
+		while (getchar() != '\n') {
+			cin >> category;
+		}
+		/*	// Ä«Å×°í¸® È®ÀÎ ±¸¹®
+		for (size_t i = 0; i < categoryNum; i++) {
+			if (category.compare(categoryData[i])) {
+				this->sCategory = category;
+			}
+			else {
+				cout << ">> ÇØ´ç Ä«Å×°í¸®°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.";
+				system("pause");
+				goto re;
+			}
+		}
+		*/
+
+		// 3. ÀÏÁ¤ ¹İº¹ ±â´É
+		cout << "ÀÏÁ¤ÀÇ ¹İº¹ ±â´ÉÀ» ¼³Á¤ÇØÁÖ¼¼¿ä 1)¿¬ ¹İº¹ 2)¿ù ¹İº¹ 3)¿äÀÏ ¹İº¹ 4)¹İº¹ ¾øÀ½ >> ";
+		while (getchar() != '\n') {
+			cin >> sel;
+		}
+		if (!(sel == 1 || sel == 2 || sel == 3 || sel == 4)) {
+			cout << ">> ¿Ã¹Ù¸¥ ÀÔ·ÂÀ» ÇØÁÖ¼¼¿ä.";
+			system("pause");
+			goto re;
+		}
+		else
+			this->sType = sel;
+
+		// 4. ½ÃÀÛ ¹× ¸¶°¨ ³¯Â¥ ÀÔ·Â
+		cout << "ÀÏÁ¤ÀÇ ½ÃÀÛ ³¯Â¥ ¹× ½Ã°¢À» ÀÔ·ÂÇØÁÖ¼¼¿ä [ex) 2022 02 03 00 30] >> ";
+		while (getchar() != '\n') {
+			cin >> sYear >> sMonth >> sDay >> sHour >> sMin;
+		}
+		// ¿¹¿ÜÃ³¸® ±¸¹® »ğÀÔ
+
+		if (sel == 4) {
+			cout << "ÀÏÁ¤ÀÇ ¸¶°¨ ³¯Â¥ ¹× ½Ã°¢À» ÀÔ·ÂÇØÁÖ¼¼¿ä [ex) 2022 02 07 15 30] >> ";
+			while (getchar() != '\n') {
+				cin >> eYear >> eMonth >> eDay >> eHour >> eMin;
+			}
+			// ¿¹¿ÜÃ³¸® ±¸¹® »ğÀÔ
+		}
+		else {
+			// ½ÃÀÛ ³¯Â¥ °è»êÇØ¼­ ¹İº¹ ÁÖ±â ¼³Á¤ÇÏ±â
+		}
+		cout << "\n\"" << sName << "\" ÀÏÁ¤ Ãß°¡°¡ ¿Ï·áµÇ¾ú½À´Ï´Ù.";
+		_getch();
+		break;
+	}
 }
 
 bool cSchedule::makeCategory()
@@ -37,9 +108,9 @@ bool cSchedule::makeCategory()
 	string fileName = "categoryData.txt";
 	ifstream fin(fileName);
 
-	// @ íŒŒì¼ ì—´ê¸° ì‹¤íŒ¨ ì‹œ ì˜ˆì™¸ì²˜ë¦¬
+	// @ ÆÄÀÏ ¿­±â ½ÇÆĞ ½Ã ¿¹¿ÜÃ³¸®
 	if (!fin.is_open()) {
-		cerr << "[Error] categoryData.txt íŒŒì¼ì„ ì—´ ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ê²½ë¡œë¥¼ í™•ì¸í•´ì£¼ì„¸ìš”.\n";
+		cerr << "[Error] categoryData.txt ÆÄÀÏÀ» ¿­ ¼ö ¾ø½À´Ï´Ù. °æ·Î¸¦ È®ÀÎÇØÁÖ¼¼¿ä.\n";
 		_getch();
 		return false;
 	}
@@ -61,4 +132,22 @@ bool cSchedule::readData(string filename)
 bool cSchedule::saveData(string filename)
 {
 	return false;
+}
+
+// # ¿¹¿ÜÃ³¸® ÇÔ¼ö :: ÀÏÁ¤ ÀÌ¸§
+int cSchedule::isRightSchedule(string name)
+{
+	return 0;
+}
+
+// # ¿¹¿ÜÃ³¸® ÇÔ¼ö :: ¹İº¹ Å¸ÀÔ
+int cSchedule::isRightSchedule(int type)
+{
+	return 0;
+}
+
+// # ¿¹¿ÜÃ³¸® ÇÔ¼ö :: ÀÏÁ¤ ³¯Â¥ ¹× ½Ã°¢
+int cSchedule::isRightSchedule(int year, int month, int day, int hour, int min)
+{
+	return 0;
 }

@@ -1,37 +1,55 @@
-ï»¿// ****** cSchedule.h ******
+// ****** cSchedule.h ******
 #pragma once
-#include "cUser.h"
+#include "cDate.h"
 
 class cSchedule :
-	public cUser
+	public cDate
 {
 private:
-	// @ ì¹´í…Œê³ ë¦¬ ë°ì´í„°, ì¹´í…Œê³ ë¦¬ ìˆ˜
+	// @ Ä«Å×°í¸® µ¥ÀÌÅÍ, Ä«Å×°í¸® ¼ö
 	string* categoryData = nullptr;
-	int categoryNum;
+	int categoryNum = 0;
 
-	// @ ìŠ¤ì¼€ì¤„ ì´ë¦„
+	// @ ½ºÄÉÁÙ °´Ã¼ÀÇ ÀÏÁ¤ ÀÌ¸§ ¹× Ä«Å×°í¸®¸í
 	string sName;
-	
-	// @ ìŠ¤ì¼€ì¤„ íƒ€ì…
-	int sType;
+	string sCategory;
 
-	// @ ìŠ¤ì¼€ì¤„ ì™„ë£Œ ì—¬ë¶€
+	// @ ÀÏÁ¤ÀÇ Å¸ÀÔ
+	int sType = 0;
+	/*
+	 - sType = 1	::  ¹İº¹¼º  ÀÏÁ¤ (¸Å ³â °°Àº ¿ùÀÏ)
+	 - sType = 2	::  ¹İº¹¼º  ÀÏÁ¤ (¸Å ¿ù °°Àº ÀÏ)
+	 - sType = 3	::  ¹İº¹¼º  ÀÏÁ¤ (¸Å ÁÖ °°Àº ¿äÀÏ)
+	 - sType = 4	::	±â°£¼º  ÀÏÁ¤ (¹İº¹ X)
+	*/
+
+	// @ ¹İº¹ ÁÖ±â
+	pair<int, int> rAnnual = { 0,0 };	// ¿¬¹İº¹
+	int rMontly = 0;
+	int rWeekly = 0;
+
+	// @ ½ºÄÉÁÙ ¿Ï·á ¿©ºÎ
 	bool sIsDone = false;
+
 public:
-	// @ ìƒì„±ìs
+	// @ »ı¼ºÀÚs
 	cSchedule();
 	~cSchedule();
-	cSchedule(string sName);
 
-	// @ ë©”ë‰´ ì¶œë ¥
-	int showMenu();
+	// @ ÀÏÁ¤ Ãß°¡
+	void makeSchedule();
 
-	// @ ì¹´í…Œê³ ë¦¬ ë°ì´í„° ìƒì„±
+	// @ Ä«Å×°í¸® µ¥ÀÌÅÍ »ı¼º
 	bool makeCategory();
 
-	// @ Schedule ë°ì´í„° ì½ê¸° ë° ì €ì¥í•˜ê¸°
+	// @ Schedule µ¥ÀÌÅÍ ÀĞ±â ¹× ÀúÀåÇÏ±â
 	bool readData(string filename);
 	bool saveData(string filename);
+
+	// @ ÀÏÁ¤ ¿¹¿ÜÃ³¸® ÇÔ¼ö
+	//int isRightSchedule();
+	int isRightSchedule(string name);
+	int isRightSchedule(int type);
+	int isRightSchedule(int year, int month, int day, int hour, int min);
 };
 

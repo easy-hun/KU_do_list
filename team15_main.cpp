@@ -1,52 +1,30 @@
-ï»¿// ****** team15_main.cpp ******
+// ****** team15_main.cpp ******
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
-#include "cSchedule.h"
-#include "team15_main.h"
+#include "cPlayList.h"
 
 using namespace std;
 
-// @ ì„¸íŒ…
-bool getSetting() {
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL); cout.tie(NULL);
-	srand((unsigned)time(NULL));
-	// @ ì´í›„ color ì„¤ì • ë“±ë“± í•„ìš”í•œ ì´ˆê¸° ì„¤ì •
-
-	return true;
-}
-
-// @ ì‹¤í–‰
-void play() {
-	getSetting();
-
-	cSchedule* s;
-	s = new cSchedule[100];
-	
-	//s[0].printNow();
-
-	delete[] s;
-	s = nullptr;
-}
-
 int main() {
 
-	play();
+	cPlayList a15;
+
+	a15.playList();
+
 
 	return 0;
 }
 
 /*
-***** íŠ¹ì´ì¼€ì´ìŠ¤ 1ë²ˆ ì¼ì • íŽ¸ì§‘&ì‚­ì œ *****
+***** Æ¯ÀÌÄÉÀÌ½º 1¹ø ÀÏÁ¤ ÆíÁý&»èÁ¦ *****
 
-=> ì‚­ì œí•  ì¼ì • ì´ë¦„ì„ ìž…ë ¥í•˜ì„¸ìš” : ì¶•êµ¬
+=> »èÁ¦ÇÒ ÀÏÁ¤ ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä : Ãà±¸
 
-1. ì¶•êµ¬ ( ë‹¨ë°œ 2022 06 22 )
-2. ì¶•êµ¬ ( ë°˜ë³µ 2022 08 20 , 15 00 00 )
-3. ì¶•êµ¬ ( ê¸°ê°„ì œ 2022 10 08 ~ 2022 10 10 )
+1. Ãà±¸ ( ´Ü¹ß 2022 06 22 )
+2. Ãà±¸ ( ¹Ýº¹ 2022 08 20 , 15 00 00 )
+3. Ãà±¸ ( ±â°£Á¦ 2022 10 08 ~ 2022 10 10 )
 
-ì‚­ì œí•  ë²ˆí˜¸ë¥¼ ì„ íƒí•˜ì„¸ìš” : 
+»èÁ¦ÇÒ ¹øÈ£¸¦ ¼±ÅÃÇÏ¼¼¿ä : 
 
 */
 
@@ -54,9 +32,9 @@ int main() {
 
 
 /*
-<ë¬¸ì œì >
+<¹®Á¦Á¡>
 
-1. ë…„ìˆ˜ê°€ ê¸´ ì¼ì •ì˜ ê²½ìš°, ë”°ë¡œë”°ë¡œ isLeafYearë¥¼ êµ¬í•˜ëŠ” ê±¸ ë§Œë“¤ì–´ì•¼ í•˜ë‚˜?
+1. ³â¼ö°¡ ±ä ÀÏÁ¤ÀÇ °æ¿ì, µû·Îµû·Î isLeafYear¸¦ ±¸ÇÏ´Â °É ¸¸µé¾î¾ß ÇÏ³ª?
 
 
 */

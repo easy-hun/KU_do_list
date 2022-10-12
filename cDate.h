@@ -1,4 +1,4 @@
-ï»¿// ****** cDate.h ******
+// ****** cDate.h ******
 #pragma once
 #define _CRT_SECURE_NO_WARNINGS
 #ifdef _DEBUG
@@ -17,38 +17,29 @@
 #include <queue>
 #include <cstdlib>
 #include <conio.h>
+#include <utility>
 
 using namespace std;
 
 class cDate
 {
 private:
-	// @ 12ë‹¬ì˜ ê° ì¼ìˆ˜ ì €ì¥ (ìœ¤ë…„ ê³„ì‚°)
+	// @ 12´ŞÀÇ °¢ ÀÏ¼ö ÀúÀå (À±³â °è»ê)
 	int* daysofMonth;
 
-	// @ ë°˜ë³µ ì¼ì •ì˜ ìœ í˜• ë³„ data
+	// @ ¹İº¹ ÀÏÁ¤ÀÇ À¯Çü º° data
 	int repeatAnnual = -1;
 	int repeatMonthly = -1;
 	int repeatWeekly = -1;
 
 protected:
-	// @ ì¼ì •ì˜ íƒ€ì…
-	int sType = -1;
-	/*
-	 - sType = 0	::  ë‹¨ë°œì„±  ì¼ì • (ë°˜ë³µx)
-	 - sType = 1	:: ê¸°ê°„í•œì • ì¼ì • (ë°˜ë³µx)
-	 - sType = 2	::  ë°˜ë³µì„±  ì¼ì • (ë§¤ ë…„ ê°™ì€ ì›”)
-	 - sType = 3	::  ë°˜ë³µì„±  ì¼ì • (ë§¤ ì›” ê°™ì€ ë‚ )
-	 - sType = 4	::  ë°˜ë³µì„±  ì¼ì • (ë§¤ ì£¼ ê°™ì€ ìš”ì¼)
-	*/
-	
-	// @ ì¼ì •ì˜ ì‹œì‘ ì‹œê°
-	int sYear, sMonth, sDay, sHour, sMin, sSec;
+	// @ ÀÏÁ¤ÀÇ ½ÃÀÛ ½Ã°¢
+	int sYear, sMonth, sDay, sHour, sMin;
 
-	// @ ì¼ì •ì˜ ì¢…ë£Œ ì‹œê°
-	int eYear, eMonth, eDay, eHour, eMin, eSec;
+	// @ ÀÏÁ¤ÀÇ Á¾·á ½Ã°¢
+	int eYear, eMonth, eDay, eHour, eMin;
 
-	// @ ìœ¤ë…„ ì²´í¬
+	// @ À±³â Ã¼Å©
 	bool isLeafYear = false;
 
 public:
@@ -56,13 +47,10 @@ public:
 	cDate();
 	~cDate();
 
-	// @ í˜„ì¬ ì‹œê° ì¶œë ¥
+	// @ ÇöÀç ½Ã°¢ Ãâ·Â
 	void printNow();
 
-	// @ ì‚¬ìš©ì ì…ë ¥ìœ¼ë¡œ ì¼ì • ì‹œê°„ ì •ë³´ ë°›ê¸°
-	void readDate();
-
-	// @ ìœ¤ë…„ ê³„ì‚°í•´ì„œ m[12] ì—…ë°ì´íŠ¸
+	// @ À±³â °è»êÇØ¼­ m[12] ¾÷µ¥ÀÌÆ®
 	void applyLeafYear(const int& year);
 
 	// @ and Windows API Functions . . .
