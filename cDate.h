@@ -15,6 +15,7 @@
 #include <fstream>
 #include <string>
 #include <queue>
+#include <list>
 #include <cstdlib>
 #include <conio.h>
 #include <utility>

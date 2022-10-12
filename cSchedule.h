@@ -6,11 +6,7 @@ class cSchedule :
 	public cDate
 {
 private:
-	// @ 카테고리 데이터, 카테고리 수
-	string* categoryData = nullptr;
-	int categoryNum = 0;
-
-	// @ 스케줄 객체의 일정 이름 및 카테고리명
+	// @ 일정 이름 및 카테고리명
 	string sName;
 	string sCategory;
 
@@ -38,13 +34,6 @@ public:
 
 	// @ 일정 추가
 	void makeSchedule();
-
-	// @ 카테고리 데이터 생성
-	bool makeCategory();
-
-	// @ Schedule 데이터 읽기 및 저장하기
-	bool readData(string filename);
-	bool saveData(string filename);
 
 	// @ 일정 예외처리 함수
 	//int isRightSchedule();

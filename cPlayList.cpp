@@ -6,13 +6,83 @@ cPlayList::cPlayList()
 	this->list = new cSchedule[100];
 	
 	// +a ) 일정 및 카테고리 Data 구문 By file 입력
+	/*
+	
+	Data 파일 예시
+
+	12						-> &sCount
+	1 0 2022 10 12 19 30		-> &sType, &sIsDone, &날짜s
+	4 1 2022 10 1 10 30 2022 10 2 11 0	-> 마찬가지 (타입 받아서 분기 코드 쓰면 될 듯)
+	*/
+	
+	/*
+	categoryData 파일 예시
+	4				-> &cateroryNum
+	// 이후 categoryData = new string[num] 해주고
+	운동			-> &categoryData[0]		
+	취미			-> ~[1]
+	공부
+	아르바이트
+	*/
+
 }
 
 
 cPlayList::~cPlayList()
 {
-	delete[] list;
-	list = nullptr;
+	// 메모리 반환 :: 일정
+	if (this->list != nullptr) {
+		delete[] this->list;
+		this->list = nullptr;
+	}
+
+	// 메모리 반환 :: 카테고리
+	if (this->categoryData != nullptr) {
+		delete[] this->categoryData;
+		this->categoryData = nullptr;
+	}
+}
+
+void cPlayList::addSchedule()
+{
+	if (sCount < 100) {
+		list[sCount++].makeSchedule();
+	}
+	else {
+		cout << ">> 일정을 더 이상 추가할 수 없습니다.\n";
+		Sleep(1000);
+	}
+}
+
+bool cPlayList::readData(string filename)
+{
+	return false;
+}
+
+bool cPlayList::saveData(string filename)
+{
+	return false;
+}
+
+bool cPlayList::makeCategory()
+{
+	string fileName = "categoryData.txt";
+	ifstream fin(fileName);
+
+	// @ 파일 열기 실패 시 예외처리
+	if (!fin.is_open()) {
+		cerr << "[Error] categoryData.txt 파일을 열 수 없습니다. 경로를 확인해주세요.\n";
+		_getch();
+		return false;
+	}
+
+	fin >> this->categoryNum;
+	this->categoryData = new string[this->categoryNum];
+
+	for (size_t i = 0; i < this->categoryNum; i++)
+		fin >> this->categoryData[i];
+
+	return true;
 }
 
 void cPlayList::getSetting()
@@ -31,7 +101,7 @@ void cPlayList::playList()
 		sel = showMenu();
 		switch (sel) {
 		case 1: {
-			makeSchedule();
+			addSchedule();
 			break;
 		}
 		case 2: {
@@ -68,7 +138,7 @@ re:;
 		<< "\n메뉴 번호를 입력해주세요 >> ";
 	cin >> sel;
 
-	if ((typeid(sel) != typeid(int)) || sel < 1 || sel>6) {
+	if ((typeid(sel) != typeid(int)) || sel < 1 || sel > 6) {
 		cout << "입력을 다시 입력해주세요.\n";
 		sel = -1;
 		_getch();
