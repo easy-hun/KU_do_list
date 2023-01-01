@@ -1,15 +1,23 @@
+// ****** cPlayList.h ******
 #pragma once
 #include "cSchedule.h"
+
+#ifdef _MSC_VER
+#define localtime_r(_time, _result) _localtime64_s(_result, _time)
+#endif
 
 class cPlayList
 	:public cSchedule
 {
 private:
 	// @ 일정 저장할 배열
+	//cSchedule* list;
 	cSchedule* list;
-	
 	// @ 일정 총 개수
 	int sCount = 0;
+
+	// @ 일정 index number
+	vector<int> v;
 
 	// @ 카테고리 데이터, 카테고리 수
 	string* categoryData = nullptr;
@@ -19,6 +27,7 @@ private:
 	string dataSchedule = "data.txt";
 	string dataCategory = "dataCategory.txt";
 public:
+	
 	cPlayList();
 	~cPlayList();
 
@@ -34,8 +43,12 @@ public:
 	// @ 4) 일정 편집
 	void editSchedule();
 
+	// @ 처음 편집할 일정 이름 입력시 존재확인 예외처리 함수
+	void isRightexit(string name);
+	void isRightexit_over1();
+
 	// @ 5) 카테고리 관리
-	void manageCategory();
+	void mCategory();
 
 	// @ 6) 종료
 
@@ -55,5 +68,12 @@ public:
 	// @ showMenu
 	int showMenu();
 
-};
+	void load_Listfile(string  FileList[100][6], int& size_row);
 
+
+	string category[20] = { "" }; //카테고리 배열 선언(개수제한 20개)
+	int categorySize = 0;
+
+	string FileList[100][6] = { "" };
+	int size_row = 0;
+};

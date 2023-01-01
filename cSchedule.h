@@ -1,6 +1,8 @@
 // ****** cSchedule.h ******
 #pragma once
 #include "cDate.h"
+#include <vector>
+#include <fstream>
 
 class cSchedule :
 	public cDate
@@ -9,6 +11,8 @@ private:
 	// @ 일정 이름 및 카테고리명
 	string sName;
 	string sCategory;
+	string sRepeat;
+
 
 	// @ 일정의 타입
 	int sType = 0;
@@ -32,13 +36,54 @@ public:
 	cSchedule();
 	~cSchedule();
 
+	bool duplicate = false;
+	int categoryNum = 3;
+
 	// @ 일정 추가
-	void makeSchedule();
+	void makeSchedule(string* category, int& categorySize, int& size_row,string FileList[100][6]);
+	void manageCategory(string* category, int& categorySize,string FileList[100][6],int& size_row);
+	string s = "";
+
+	// @ 일정 삭제
+	void deleteSchedule(int& size_row, string FileList[100][6]);
+	bool isSign(string str);
+
+	// @ 일정 편집
+	void edit_Schedule();
+	// @ 일정 편집 예외처리 함수 
+	int showmenu_edit();
 
 	// @ 일정 예외처리 함수
-	//int isRightSchedule();
-	int isRightSchedule(string name);
-	int isRightSchedule(int type);
-	int isRightSchedule(int year, int month, int day, int hour, int min);
-};
+	// bool isRightSchedule(); : ProtoType, Override needed
+	bool isRightSchedule(string name);
+	bool isRightSchedule(int type);
+	bool isRightSchedule(int year, int month);
+	bool isRightSchedule(bool isS, int year, int month, int day, int hour, int min);
 
+	bool isRightTimeString(bool isStart, string time);
+	bool transTimeToInt(bool isStart, string time);
+	// @ get methods
+	string getsName() const;
+	string getsCategory() const;
+	int getsType() const;
+	pair<int, int> getrAnnual() const;
+	int getrMonthly() const;
+	int getrWeekly() const;
+	string getDayW(int weekly) const;
+
+	// @ set methods
+	void setsName(const string& name);
+	void setRepeat(const int& type, const cSchedule& _list);
+	void setIsDone(const bool& is);
+	void setsType(const int& type);
+	void setsCategory(const string& category);
+	void setsRepeat(const string& list);
+
+	//파일내용 저장리스트
+	
+	string CategoryList[100];
+
+	int getsIsDone() const;
+	
+
+};
